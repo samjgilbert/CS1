@@ -1,0 +1,58 @@
+/***************************************
+ * basic CSS stylings for gwt elements *
+ ***************************************/
+
+root { 
+    display: block;
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+:focus {
+    outline:0;
+}
+
+.gwt-HTML {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: small;
+}
+
+.gwt-Button {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: small;
+}
+
+.gwt-CheckBox {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: small;
+}
+
+.gwt-Label {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: small;
+}
+
+.gwt-RadioButton {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: small;
+}
+
+.instructionText {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: large; 
+}
+
+.titleText {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: large;
+	font-weight: bold;
+}
+
+.bottomMarginSmall {
+	margin-bottom: 30px;
+}
+
+.rightMarginSmall {
+	margin-right: 10px;
+}
