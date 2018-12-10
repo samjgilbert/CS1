@@ -124,6 +124,9 @@ public class IOtask1Block {
 	public boolean redFlashFlag = false;
 	
 	//make a list of target circles that have not yet been offloaded.
-	//we can use this for the mandatory offloading condition
+	//we can use this for the mandatory offloading condition (targets only)
 	public ArrayList<Integer> notYetOffloaded = new ArrayList<Integer>();
+	//here we collect a list of all circles that have been offloaded.
+	//we can use this for the mandatory offloading condition (any circles)
+	public ArrayList<Integer> allOffloaded = new ArrayList<Integer>();
 }

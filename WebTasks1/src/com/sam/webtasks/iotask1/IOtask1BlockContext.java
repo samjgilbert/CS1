@@ -2,177 +2,199 @@ package com.sam.webtasks.iotask1;
 
 import java.util.Date;
 
+import com.google.gwt.user.client.Window;
+import com.sam.webtasks.client.Names;
+
 public class IOtask1BlockContext {
 	private static IOtask1Block blockContext;
-	
+
 	public static void setContext(IOtask1Block block) {
 		blockContext = block;
 	}
-	
+
 	public static IOtask1Block getContext() {
-		return(blockContext);
+		return (blockContext);
 	}
-	
-	//use these methods to set and find out the currently clicked circle, and check offloading status
+
+	// use these methods to set and find out the currently clicked circle, and check
+	// offloading status
 	public static void setClickedCircle(int clickedCircle) {
 		blockContext.clickedCircle = clickedCircle;
-		
+
 		for (int i = 0; i < blockContext.notYetOffloaded.size(); i++) {
 			if (blockContext.notYetOffloaded.get(i) == clickedCircle) {
 				blockContext.notYetOffloaded.remove(i);
 			}
 		}
-	}
-	
-	public static boolean allOffloaded() {
-		if (blockContext.notYetOffloaded.size() == 0) {
-			return(true);
-		} else {
-			return(false);
+
+		// add clicked circle to list of offloaded circles, if it has been clicked out
+		// of sequence and is not already in the list
+		if (clickedCircle != blockContext.nextCircle) {
+			if (!blockContext.allOffloaded.contains(clickedCircle)) {
+				blockContext.allOffloaded.add(clickedCircle);
+			}
 		}
 	}
-	
-	public static int getClickedCircle() {
-		return(blockContext.clickedCircle);
+
+	public static boolean allOffloaded() {
+		// automatically return true if reminders are not mandatory
+		if ((blockContext.offloadCondition == Names.REMINDERS_NOTALLOWED) | (blockContext.offloadCondition == Names.REMINDERS_OPTIONAL)) {
+			return (true);
+		} else if (blockContext.offloadCondition == Names.REMINDERS_MANDATORY_TARGETONLY) {
+			if (blockContext.notYetOffloaded.size() == 0) {
+				return (true);
+			} else {
+				return (false);
+			}
+		} else { // reminders mandatory anycircle
+			if (blockContext.allOffloaded.size() >= blockContext.nTargets) {
+				return (true);
+			} else {
+				return (false);
+			}
+		}
 	}
-	
-	//use these methods to set and find which side of the box the circle has been dragged to
+
+	public static int getClickedCircle() {
+		return (blockContext.clickedCircle);
+	}
+
+	// use these methods to set and find which side of the box the circle has been
+	// dragged to
 	public static void setExitFlag(int exitFlag) {
 		blockContext.exitFlag = exitFlag;
 	}
-	
+
 	public static int getExitFlag() {
-		return(blockContext.exitFlag);
+		return (blockContext.exitFlag);
 	}
-	
-	//use these methods to set and find out which is the next circle in the sequence
+
+	// use these methods to set and find out which is the next circle in the
+	// sequence
 	public static void setNextCircle(int nextCircle) {
 		blockContext.nextCircle = nextCircle;
 	}
-	
+
 	public static int getNextCircle() {
-		return(blockContext.nextCircle);
+		return (blockContext.nextCircle);
 	}
-	
-	public static boolean incrementNextCircle() { //returns true if there are more circles to go
+
+	public static boolean incrementNextCircle() { // returns true if there are more circles to go
 		blockContext.nextCircle++;
-		
+
 		if (blockContext.nextCircle < blockContext.nCircles) {
-			return(true);
+			return (true);
 		} else {
-			return(false);
+			return (false);
 		}
 	}
-	
+
 	public static boolean allCirclesRemoved() {
 		if ((blockContext.clickedCircle + 1) == blockContext.nCircles) {
-			return(true);
+			return (true);
 		} else {
-			return(false);
+			return (false);
 		}
 	}
-	
-	//find out whether the circle has been dragged to the default exit
+
+	// find out whether the circle has been dragged to the default exit
 	public static boolean defaultExit() {
 		if (blockContext.targetCircles[blockContext.exitFlag] == -1) {
-			return(true);
+			return (true);
 		} else {
-			return(false);
+			return (false);
 		}
 	}
-	
-	//find out whether a correct target response has been made
+
+	// find out whether a correct target response has been made
 	public static boolean corectTargetResponse() {
 		if (blockContext.targetCircles[blockContext.exitFlag] == blockContext.clickedCircle) {
-			return(true);
+			return (true);
 		} else {
-			return(false);
+			return (false);
 		}
 	}
-	
-	//increment the trial number at the end of a trial
+
+	// increment the trial number at the end of a trial
 	public static void incrementTrialNumber() {
 		blockContext.currentTrial++;
 	}
-	
-	//set and check the doubleClickFlag
+
+	// set and check the doubleClickFlag
 	public static void setDoubleClickFlag(boolean doubleClickFlag) {
-		blockContext.doubleClickFlag=doubleClickFlag;
+		blockContext.doubleClickFlag = doubleClickFlag;
 	}
-	
+
 	public static boolean getDoubleClickFlag() {
-		return(blockContext.doubleClickFlag);
+		return (blockContext.doubleClickFlag);
 	}
-	
-	//set and check the drag start and end timestamps
+
+	// set and check the drag start and end timestamps
 	public static void setDragStart() {
-		blockContext.dragStart=new Date();
-		
-		blockContext.dragStartTimeStamp = (int) (blockContext.dragStart.getTime() - blockContext.instructionEnd.getTime());
+		blockContext.dragStart = new Date();
+
+		blockContext.dragStartTimeStamp = (int) (blockContext.dragStart.getTime()
+				- blockContext.instructionEnd.getTime());
 	}
-	
+
 	public static Date getDragStartTime() {
-		return(blockContext.dragStart);
+		return (blockContext.dragStart);
 	}
-	
+
 	public static int getDragStartTimeStamp() {
-		return(blockContext.dragStartTimeStamp);
+		return (blockContext.dragStartTimeStamp);
 	}
-	
+
 	public static void setDragEnd() {
-		blockContext.dragEnd=new Date();
+		blockContext.dragEnd = new Date();
 		blockContext.dragDuration = (int) (blockContext.dragEnd.getTime() - blockContext.dragStart.getTime());
 	}
-	
+
 	public static Date getDragEndTime() {
-		return(blockContext.dragEnd);
+		return (blockContext.dragEnd);
 	}
-	
+
 	public static int getDragDuration() {
-		return(blockContext.dragDuration);
+		return (blockContext.dragDuration);
 	}
-	
-	//set and check the redFlashFlag
+
+	// set and check the redFlashFlag
 	public static void setRedFlashFlag(boolean redFlashFlag) {
-		blockContext.redFlashFlag=redFlashFlag;
+		blockContext.redFlashFlag = redFlashFlag;
 	}
-	
+
 	public static boolean getRedFlashFlag() {
 		return (blockContext.redFlashFlag);
 	}
-	
-	//check whether we should be asking an arithmetic question now
+
+	// check whether we should be asking an arithmetic question now
 	public static boolean quizCircle() {
 		if (blockContext.clickedCircle == blockContext.quizCircle) {
-			//this is the quiz circle. before returning true we will set the quiz circle to -1 so the question does not get asked again
-			blockContext.quizCircle=-1;
-			
-			return(true);
+			// this is the quiz circle. before returning true we will set the quiz circle to
+			// -1 so the question does not get asked again
+			blockContext.quizCircle = -1;
+
+			return (true);
 		} else {
-			return(false);
+			return (false);
 		}
 	}
-	
-	//get the block number, trial number, and nCircles
+
+	// get the block number, trial number, and nCircles
 	public static int getBlockNum() {
 		return (blockContext.blockNum);
 	}
-	
+
 	public static int getTrialNum() {
 		return (blockContext.currentTrial);
 	}
-	
+
 	public static int getNCircles() {
 		return (blockContext.nCircles);
 	}
-	
-	//get the target circles for each side of the box
+
+	// get the target circles for each side of the box
 	public static int getTargetCircle(int side) {
-		return(blockContext.targetCircles[side]);
-	}
-	
-	//get the offload condition
-	public static int getOffloadCondition() {
-		return(blockContext.offloadCondition);
+		return (blockContext.targetCircles[side]);
 	}
 }

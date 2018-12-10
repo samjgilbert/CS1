@@ -69,7 +69,11 @@ public class SequenceHandler {
 					text="you cannot set reminders";
 				}
 				
-				if (Counterbalance.getFactorLevel("phase1reminders")==Names.REMINDERS_MANDATORY) {
+				if (Counterbalance.getFactorLevel("phase1reminders")==Names.REMINDERS_MANDATORY_ANYCIRCLE) {
+					text="you must set reminders";
+				}
+				
+				if (Counterbalance.getFactorLevel("phase1reminders")==Names.REMINDERS_MANDATORY_TARGETONLY) {
 					text="you must set reminders";
 				}
 				
@@ -87,6 +91,7 @@ public class SequenceHandler {
 				block1.nTargets = 3;
 				block1.askArithmetic = true;
 				block1.offloadCondition = Counterbalance.getFactorLevel("phase1reminders");
+				
 				block1.Run();
 				break;
 			case 5:
@@ -113,6 +118,10 @@ public class SequenceHandler {
 				PHP.logData("finish", data, true);
 				break;
 			case 8:
+				//set participant status to finished
+				PHP.UpdateStatus("finished");
+				break;
+			case 9:
 				// complete the experiment
 				Finish.Run();
 				break;

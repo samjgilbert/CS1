@@ -264,24 +264,7 @@ public class IOtask1RunTrial {
 						DragContext dC = event.getDragContext();
 						int clickedCircle = IOtask1BlockContext.getClickedCircle();
 
-						boolean waitForOffloading = true; // block continuation until after offloading has been done?
-
-						if (IOtask1BlockContext.getOffloadCondition() != Names.REMINDERS_MANDATORY) {
-							// only applies if participant is in the mandatory reminders condition
-							waitForOffloading = false;
-						}
-
-						if (IOtask1BlockContext.allOffloaded()) {
-							// ignore if the offloading has actually been done
-							waitForOffloading = false;
-						}
-
-						if (clickedCircle > 0) {
-							// ignore if participant has already gone past the first circle in the sequence
-							waitForOffloading = false;
-						}
-
-						if (!waitForOffloading) {
+						if (IOtask1BlockContext.allOffloaded()) { // check whether participant has offloaded before continuing. If reminders are not mandatory, this function automatically returns true
 							// is the clicked circle the next one in the sequence?
 							if (IOtask1BlockContext.getClickedCircle() == IOtask1BlockContext.getNextCircle()) {
 								// fix position of circle on screen
@@ -430,13 +413,8 @@ public class IOtask1RunTrial {
 					}
 
 					if (IOtask1BlockContext.getExitFlag() > 0) { // circle dragged out of box
-						if (IOtask1BlockContext.getClickedCircle() == IOtask1BlockContext.getNextCircle()) { // circle
-																												// was
-																												// next
-																												// in
-																												// sequence
-							if ((IOtask1BlockContext.getOffloadCondition() != Names.REMINDERS_MANDATORY)
-									| (IOtask1BlockContext.allOffloaded())) {
+						if (IOtask1BlockContext.getClickedCircle() == IOtask1BlockContext.getNextCircle()) { // circle was next in sequence
+							if (IOtask1BlockContext.allOffloaded()) {
 								// run the animation
 								AnimationProperties props = new AnimationProperties();
 								props.push(Properties.SCALE(0));

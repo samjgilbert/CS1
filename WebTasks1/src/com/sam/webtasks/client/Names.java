@@ -2,9 +2,10 @@ package com.sam.webtasks.client;
 
 public class Names {
 	//reminder conditions
-	public final static int REMINDERS_NOTALLOWED=0;
-	public final static int REMINDERS_OPTIONAL=1;
-	public final static int REMINDERS_MANDATORY=2;
+	public final static int REMINDERS_NOTALLOWED=0; //can't use reminders
+	public final static int REMINDERS_OPTIONAL=1;   //optional to use reminders
+	public final static int REMINDERS_MANDATORY_ANYCIRCLE=2; //mandatory to set reminders, but it works to move any circles, not just the specified targets
+	public final static int REMINDERS_MANDATORY_TARGETONLY=3;//mandatory to set reminders for the specified targets
 		
 	//Gender
 	public final static int GENDER_MALE=0;
