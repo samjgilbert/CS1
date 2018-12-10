@@ -6,7 +6,7 @@ public class SessionInfo {
 	/*******************************************************/
 		
 	//are we just testing locally? set this to true if so and it won't try to log data to the database
-	public static boolean localTesting=true;
+	public static boolean localTesting=false;
 	
 	//what is the name for this experiment?
 	public static String experimentCode="testExp";

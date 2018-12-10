@@ -35,6 +35,8 @@ public class Finish {
 
 		RootPanel.get().add(goodbyeText);
 		RootPanel.get().add(commentPanel);
+		
+		PHP.UpdateStatus("finished");
 
 		button.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
