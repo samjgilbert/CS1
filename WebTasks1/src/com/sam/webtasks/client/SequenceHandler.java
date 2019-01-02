@@ -39,6 +39,11 @@ import com.sam.webtasks.iotask1.IOtask1BlockContext;
 import com.sam.webtasks.iotask1.IOtask1DisplayParams;
 import com.sam.webtasks.iotask1.IOtask1InitialiseTrial;
 import com.sam.webtasks.iotask1.IOtask1RunTrial;
+import com.sam.webtasks.iotask2.IOtask2Block;
+import com.sam.webtasks.iotask2.IOtask2BlockContext;
+import com.sam.webtasks.iotask2.IOtask2RunTrial;
+import com.sam.webtasks.iotask2.IOtask2Feedback;
+import com.sam.webtasks.iotask2.IOtask2PreTrial;
 
 public class SequenceHandler {
 	public static void Next() {	
@@ -172,8 +177,8 @@ public class SequenceHandler {
 		case 2: // IOtask1 loop
 			switch (sequencePosition.get(2)) {
 			/*************************************************************
-			 * The code here defines the sequence of events in subloop 1 * This runs a
-			 * single trial of IOtask1 *
+			 * The code here defines the sequence of events in subloop 2 *
+			 * This runs a single trial of IOtask1                       *
 			 *************************************************************/
 			case 1:
 				// first check if the block has ended. If so return control to the main sequence
@@ -198,7 +203,51 @@ public class SequenceHandler {
 				// we have reached the end, so we need to restart the loop
 				SequenceHandler.SetLoop(2, true);
 				SequenceHandler.Next();
+				break;
 				// TODO: mechanism to give post-trial feedback?
+			}
+			break;
+		case 3: //IOtask2 loop
+			switch (sequencePosition.get(3)) {
+			/*************************************************************
+			 * The code here defines the sequence of events in subloop 3 *
+			 * This runs a single trial of IOtask2                       *
+			 *************************************************************/
+			case 1:
+				// first check if the block has ended. If so return control to the main sequence
+				// handler
+				IOtask2Block block = IOtask2BlockContext.getContext();
+				
+				if (block.currentTrial == block.nTrials) {
+					SequenceHandler.SetLoop(0,  false);
+				}
+				
+				SequenceHandler.Next();
+				break;
+			case 2:
+				//present the pre-trial choice if appropriate
+				if (IOtask2BlockContext.currentTargetValue() > -1) {
+					IOtask2PreTrial.Run();
+				} else { //otherwise just skip to the start of the block
+					SequenceHandler.Next();
+				}
+				break;
+			case 3:
+				//now run the trial
+				IOtask2RunTrial.Run();
+				break;
+			case 4:
+				if (IOtask2BlockContext.showPostTrialFeedback()) {
+					IOtask2Feedback.Run();
+				} else {
+					SequenceHandler.Next();
+				}
+				break;
+			case 5:
+				//we have reached the end, so we need to restart the loop
+				SequenceHandler.SetLoop(3,  true);
+				SequenceHandler.Next();
+				break;
 			}
 		}
 	}

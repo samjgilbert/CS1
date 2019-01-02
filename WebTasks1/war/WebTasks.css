@@ -56,3 +56,23 @@ root {
 .rightMarginSmall {
 	margin-right: 10px;
 }
+
+.greenButton {
+	background-color: lightgreen;
+	border-radius: 5px;
+	padding: 5px;
+	margin-left: 10px;
+	margin-right: 10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: large;
+}
+
+.pinkButton {
+	background-color: lightpink;
+	border-radius: 5px;
+	padding: 5px;
+	margin-left: 10px;
+	margin-right: 10px;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: large;
+}

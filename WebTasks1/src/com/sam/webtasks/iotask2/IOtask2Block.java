@@ -34,11 +34,23 @@ public class IOtask2Block {
 	//should target feedback be shown, i.e. green for correct target response, red for incorrect
 	public boolean showTargetFeedback=true;
 	
+	//should post-trial feedback be shown?
+	public boolean showPostTrialFeedback=true;
+	
 	//total number of targets to include
 	public int nTargets=10;
 	
+	//target locations for each circle
+	int[] targetSide = new int[nTargets];
+	
 	//target values
 	public ArrayList<Integer> targetValues = new ArrayList<Integer>();
+	
+	//maximum number of points per target (i.e. in the no reminder condition)
+	public int maxPoints=10;
+	
+	//how many points per target are actually scored?
+	public int actualPoints=0;
 	
 	//total number of points scored so far
 	public int totalPoints=0;

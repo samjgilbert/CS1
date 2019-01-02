@@ -40,4 +40,29 @@ public class IOtask2BlockContext {
 	public static int currentTargetValue() {
 		return (blockContext.targetValues.get(blockContext.currentTrial));
 	}
+	
+	//what is the maximum number of points (i.e. for targets in the no reminder condition)
+	public static int maxPoints() {
+		return (blockContext.maxPoints);
+	}
+	
+	//what is the current trial number
+	public static int getTrialNum() {
+		return (blockContext.currentTrial);
+	}
+	
+	//offloading condition
+	public static void setOffloadCondition(int newCondition) {
+		blockContext.offloadCondition = newCondition;
+	}
+	
+	//how many points per target will be scored?
+	public static void setActualPoints(int newPoints) {
+		blockContext.actualPoints = newPoints;
+	}
+	
+	//post-trial feedback
+	public static boolean showPostTrialFeedback() {
+		return (blockContext.showPostTrialFeedback);
+	}
 }
