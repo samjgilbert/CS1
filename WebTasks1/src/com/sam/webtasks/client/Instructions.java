@@ -4,7 +4,7 @@ public class Instructions {
 
 	public static String Get(int index) {
 		String i="";
-		
+		 
 		switch(index) {
 		case 0:
 			i="Hello.<br>This is the first page of instructions.";

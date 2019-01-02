@@ -37,7 +37,7 @@ public class SessionInfo {
     /* no need to edit the settings below this point */
 	/*************************************************/
 	
-	//participant info
+	//participant info variables
 	public static int gender;
 	public static int age;
 	public static String participantID;
