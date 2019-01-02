@@ -155,7 +155,7 @@ public class SequenceHandler {
 				RootPanel.get().clear();
 
 				// make sure the browser window is big enough
-				CheckScreenSize.Run(SessionInfo.minScreenSize, SessionInfo.minScreenSize);
+				CheckScreenSize.Run(IOtask1DisplayParams.minPixels, IOtask1DisplayParams.minPixels);
 				break;
 			case 5:
 				InfoSheet.Run(Instructions.InfoText());

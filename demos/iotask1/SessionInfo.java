@@ -1,5 +1,7 @@
 package com.sam.webtasks.client;
 
+import com.sam.webtasks.client.Names;
+
 public class SessionInfo {
 	/*******************************************************/
 	/* edit the settings below to configure the experiment */
@@ -13,11 +15,6 @@ public class SessionInfo {
 	
 	//which version of the experiment is this?
 	public static int experimentVersion=1;
-	
-	//what is the minimum permitted screen size in pixels?
-	//if the screen is smaller than this the participant will be asked
-	//to maximise their display before continuing
-	public static int minScreenSize=500;
 	
 	//who is eligible to take part?
 	//Names.ANYONE = anybody
@@ -34,15 +31,9 @@ public class SessionInfo {
 	//if you want to specify the level of any of those factors, set it with specifiedLevels. otherwise set to -1
 	//e.g. specifiedLevels = {-1, 2, -1}; would randomise factors 1 and 3, and set the second factor to level 2
 	//NB levels range from 0 to (maximum - 1)
-	public static String[] counterbalanceFactors = {"forcedOrder", "buttonPositions", "buttonColours", "initialDifficulty", "feedbackValence"};
-	public static int[] counterbalanceLevels = {2,2,2,2,2};
-	public static int[] specifiedLevels = {-1,-1,-1,-1,-1};
-	
-	//forcedOrder: is the first forced trial internal or external?
-	//buttonPositions: assignment of own memory / reminder buttons to left / right
-	//buttonColours: assignment of buttons to pink / green colours
-	//initialDifficulty: number of targets during initial practice
-	//feedbackValence: positive / negative feedback after each trial
+	public static String[] counterbalanceFactors = {"phase1reminders"};
+	public static int[] counterbalanceLevels = {3};
+	public static int[] specifiedLevels = {-1};
 	
 	/*************************************************/
     /* no need to edit the settings below this point */

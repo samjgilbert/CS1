@@ -1,9 +1,6 @@
 package com.sam.webtasks.iotask1;
 
 public class IOtask1DisplayParams {
-	//minimum screen size in pixels (NOT YET IMPLEMENTED)
-	public static int minPixels=500;
-	
 	//size of the box, as a proportion of window size
 	public static double boxSize=0.8; 
 	
