@@ -11,6 +11,9 @@ public class IOtask2InitialiseTrial {
 	public static void Run() {
 		IOtask2Block block = IOtask2BlockContext.getContext();	
 		
+		block.reminderFlag=-1;
+		block.backupReminderFlag=-1;
+		
 		IOtask2DisplayParams.circleColours[0] = ColorName.YELLOW;
 		IOtask2DisplayParams.circleColours[1] = ColorName.DEEPSKYBLUE;
 		IOtask2DisplayParams.circleColours[2] = ColorName.VIOLET;

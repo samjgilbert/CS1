@@ -43,6 +43,7 @@ import com.sam.webtasks.iotask2.IOtask2Block;
 import com.sam.webtasks.iotask2.IOtask2BlockContext;
 import com.sam.webtasks.iotask2.IOtask2RunTrial;
 import com.sam.webtasks.iotask2.IOtask2Feedback;
+import com.sam.webtasks.iotask2.IOtask2InitialiseTrial;
 import com.sam.webtasks.iotask2.IOtask2PreTrial;
 
 public class SequenceHandler {
@@ -60,75 +61,9 @@ public class SequenceHandler {
 				ClickPage.Run(Instructions.Get(0), "Next");
 				break;
 			case 2:
-				// update the status for this participant, saving their counterbalancing condition.
-				// This means that if they come back to the experiment and eligibility is set to 
-				// NEVERCOMPLETED, we will first load their previous counterbalancing settings.
-				// Note that if eligibility is set to ANYONE, this stage is ignored and the counterbalancing settings
-				// are always randomised.
-				PHP.UpdateStatus("" + Counterbalance.getCounterbalancingCell());
-				break;
-			case 3:
-				String text=""; 
-				
-				if (Counterbalance.getFactorLevel("phase1reminders")==Names.REMINDERS_NOTALLOWED) {
-					text="you cannot set reminders";
-				}
-				
-				if (Counterbalance.getFactorLevel("phase1reminders")==Names.REMINDERS_MANDATORY_ANYCIRCLE) {
-					text="you must set reminders";
-				}
-				
-				if (Counterbalance.getFactorLevel("phase1reminders")==Names.REMINDERS_MANDATORY_TARGETONLY) {
-					text="you must set reminders";
-				}
-				
-				if (Counterbalance.getFactorLevel("phase1reminders")==Names.REMINDERS_OPTIONAL) {
-					text="reminders are optional";
-				}
-				
-				ClickPage.Run(text,  "Next");
-				break;
-			case 4:
-				//phase 1
-				IOtask1Block block1 = new IOtask1Block();
-				block1.blockNum = 1;
-				block1.nTrials = 2;
-				block1.nTargets = 3;
-				block1.askArithmetic = true;
-				block1.offloadCondition = Counterbalance.getFactorLevel("phase1reminders");
+				IOtask2Block block1 = new IOtask2Block();
 				
 				block1.Run();
-				break;
-			case 5:
-				ClickPage.Run("From now on you will not be able to set reminders", "Next");
-				break;
-			case 6:
-				//phase 2
-				IOtask1Block block2 = new IOtask1Block();
-				block2.blockNum = 2;
-				block2.nTrials = 2;
-				block2.nTargets = 3;
-				block2.askArithmetic = true;
-				block2.offloadCondition = Names.REMINDERS_NOTALLOWED;
-				block2.Run();
-				break;
-			case 7:
-				// log data and check that it saves
-				String data = SessionInfo.rewardCode + ",";
-				data = data + Counterbalance.getFactorLevel("phase1reminders") + ",";
-				data = data + SessionInfo.gender + ",";
-				data = data + SessionInfo.age + ",";
-				data = data + TimeStamp.Now();
-
-				PHP.logData("finish", data, true);
-				break;
-			case 8:
-				//set participant status to finished
-				PHP.UpdateStatus("finished");
-				break;
-			case 9:
-				// complete the experiment
-				Finish.Run();
 				break;
 			}
 			break;
@@ -225,6 +160,9 @@ public class SequenceHandler {
 				SequenceHandler.Next();
 				break;
 			case 2:
+				IOtask2InitialiseTrial.Run();
+				break;
+			case 3:
 				//present the pre-trial choice if appropriate
 				if (IOtask2BlockContext.currentTargetValue() > -1) {
 					IOtask2PreTrial.Run();
@@ -232,18 +170,18 @@ public class SequenceHandler {
 					SequenceHandler.Next();
 				}
 				break;
-			case 3:
+			case 4:
 				//now run the trial
 				IOtask2RunTrial.Run();
 				break;
-			case 4:
+			case 5:
 				if (IOtask2BlockContext.showPostTrialFeedback()) {
 					IOtask2Feedback.Run();
 				} else {
 					SequenceHandler.Next();
 				}
 				break;
-			case 5:
+			case 6:
 				//we have reached the end, so we need to restart the loop
 				SequenceHandler.SetLoop(3,  true);
 				SequenceHandler.Next();

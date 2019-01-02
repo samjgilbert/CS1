@@ -21,6 +21,10 @@ import com.sam.webtasks.client.SequenceHandler;
 public class IOtask2PreTrial {
 	public static void Run() {
 		final Date instructionStart = new Date();
+		
+		IOtask2BlockContext.setReminderFlag(-1);
+		IOtask2BlockContext.setBackupReminderFlag(-1);
+		IOtask2BlockContext.setReminderCompletedCircles(-999);
 
 		final HTML displayText = new HTML();
 		final HorizontalPanel horizontalPanel = new HorizontalPanel();
