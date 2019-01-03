@@ -20,6 +20,7 @@ import com.sam.webtasks.client.SequenceHandler;
 
 public class IOtask2PreTrial {
 	public static void Run() {
+		
 		final Date instructionStart = new Date();
 		
 		IOtask2BlockContext.setReminderFlag(-1);
@@ -124,9 +125,8 @@ public class IOtask2PreTrial {
 				Date responseTime = new Date();
 				
 				//,1, below indicates the output that reminders have been selected
-				String data = IOtask2BlockContext.getTrialNum() + "," + IOtask2BlockContext.currentTargetValue() + ",1," + (int) (responseTime.getTime() - instructionStart.getTime()); 
-
-				PHP.logData("preTrial", data, true);
+				
+				final String data = IOtask2BlockContext.getTrialNum() + "," + IOtask2BlockContext.currentTargetValue() + ",1," + (int) (responseTime.getTime() - instructionStart.getTime()); 
 
 				RootPanel.get().remove(horizontalPanel);
 
@@ -136,7 +136,7 @@ public class IOtask2PreTrial {
 
 				new Timer() {
 					public void run() {
-						SequenceHandler.Next();
+						PHP.logData("preTrial", data, true);
 					}
 				}.schedule(500);
 			}
@@ -147,9 +147,7 @@ public class IOtask2PreTrial {
 				Date responseTime = new Date();
 				
 				//,0, below indicates that reminders have not been selected
-				String data = IOtask2BlockContext.getTrialNum() + "," + IOtask2BlockContext.currentTargetValue() + ",0," + (int) (responseTime.getTime() - instructionStart.getTime()); 
-
-				PHP.logData("preTrial", data, true);
+				final String data = IOtask2BlockContext.getTrialNum() + "," + IOtask2BlockContext.currentTargetValue() + ",0," + (int) (responseTime.getTime() - instructionStart.getTime()); 
 
 				RootPanel.get().remove(horizontalPanel);
 
@@ -159,7 +157,7 @@ public class IOtask2PreTrial {
 
 				new Timer() {
 					public void run() {
-						SequenceHandler.Next();
+						PHP.logData("preTrial", data, true);
 					}
 				}.schedule(500);
 			}

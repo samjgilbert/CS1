@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.google.gwt.user.client.Window;
 import com.sam.webtasks.client.Names;
+import com.sam.webtasks.client.SequenceHandler;
 
 public class IOtask2BlockContext {
 	private static IOtask2Block blockContext;
@@ -16,8 +17,7 @@ public class IOtask2BlockContext {
 		return (blockContext);
 	}
 
-	// use these methods to set and find out the currently clicked circle, and check
-	// offloading status
+	// use these methods to set and find out the currently clicked circle
 	public static void setClickedCircle(int clickedCircle) {
 		blockContext.clickedCircle = clickedCircle;
 	}
@@ -73,6 +73,15 @@ public class IOtask2BlockContext {
 	}
 
 	// offloading condition
+	public static int getOffloadCondition() {
+		return(blockContext.offloadCondition);
+	}
+	
+	//instruction time
+	public static int getInstructionTime() {
+		return(blockContext.instructionTime);
+	}
+	
 	public static void setOffloadCondition(int newCondition) {
 		blockContext.offloadCondition = newCondition;
 	}
@@ -133,12 +142,7 @@ public class IOtask2BlockContext {
 	public static int getTargetSide(int side) {
 		return(blockContext.targetSide[side]);
 	}
-	
-	//offload condition
-	public static int getOffloadCondition() {
-		return(blockContext.offloadCondition);
-	}
-	
+
 	//checkExitFlag
 	public static void setCheckExitFlag(int exitFlag) {
 		blockContext.checkExitFlag=exitFlag;
@@ -167,6 +171,11 @@ public class IOtask2BlockContext {
 		return (blockContext.doubleClickFlag);
 	}
 	
+	public static void endTrial() {
+		blockContext.currentTrial++;
+		SequenceHandler.Next();
+	}
+	
 	// flash flag
 	public static void setFlashFlag(boolean flag) {
 		blockContext.flashFlag = flag;
@@ -193,6 +202,7 @@ public class IOtask2BlockContext {
 	public static int getTotalCircles() {
 		return(blockContext.totalCircles);
 	}
+
 
 	// use these methods to set and find which side of the box the circle has been
 	// dragged to

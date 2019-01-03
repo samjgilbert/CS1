@@ -53,7 +53,7 @@ public class IOtask2RunTrial {
 		// set up labels to put inside circles
 		final String[] labels = new String[block.nCircles];
 
-		for (int i = 0; i < block.nCircles; i++) {
+		for (int i = 0; i < block.totalCircles; i++) {
 			labels[i] = "" + (i + 1);
 		}
 
@@ -182,7 +182,7 @@ public class IOtask2RunTrial {
 
 		final int[] circleXref = circleX;
 		final int[] circleYref = circleY;
-
+		
 		for (c = 0; c < block.nCircles; c++) {
 			circles[c] = new Circle(circleRadius);
 			circleOverlays[c] = new Circle(circleRadius);
@@ -206,7 +206,7 @@ public class IOtask2RunTrial {
 			circleGroup[c].setX(circleX[c]);
 			circleGroup[c].setY(circleY[c]);
 
-			switch (block.offloadCondition) {
+			switch (IOtask2BlockContext.getOffloadCondition()) {
 			case Names.REMINDERS_NOTALLOWED:
 				circleGroup[c].setDraggable(false);
 				break;
@@ -302,7 +302,7 @@ public class IOtask2RunTrial {
 								int circleNum = IOtask2BlockContext.getClickedCircle()
 										+ IOtask2BlockContext.getCircleAdjust();
 
-								if (IOtask2BlockContext.getExitFlag() == circleNum) {
+								if (IOtask2BlockContext.getExitFlag() == IOtask2BlockContext.getTargetSide(circleNum)) {
 									IOtask2BlockContext.incrementHits();
 									circles[IOtask2BlockContext.getClickedCircle()].setFillColor(ColorName.GREENYELLOW);
 								} else if (IOtask2BlockContext.getExitFlag() < 4) { // incorrect target response
@@ -514,7 +514,7 @@ public class IOtask2RunTrial {
 									IAnimationHandle handle = circles[clickedCircleFinal].animate(null, null, 400,
 											callback);
 								}
-							}.schedule(2000);
+							}.schedule(IOtask2BlockContext.getInstructionTime());
 
 							/*
 							 * new Timer() { public void run() { IAnimationCallback callback = new
@@ -553,7 +553,7 @@ public class IOtask2RunTrial {
 							 */
 						}
 
-						//checkExit = 1; // ready for next exit event
+						IOtask2BlockContext.setCheckExitFlag(1); // ready for next exit event
 						IOtask2BlockContext.setExitFlag(0);
 						IOtask2BlockContext.incrementNextCircle();
 
@@ -639,20 +639,19 @@ public class IOtask2RunTrial {
 		circleGroup[0].addNodeMouseDoubleClickHandler((NodeMouseDoubleClickHandler) new NodeMouseDoubleClickHandler() {
 			@Override
 			public void onNodeMouseDoubleClick(NodeMouseDoubleClickEvent event) {
-				//quitFlag = true;
+				IOtask2BlockContext.setDoubleClickFlag(true);
 			}
 		});
-/*
-		circleGroup[trialParams.nCircles - 1].addNodeMouseDoubleClickHandler(new NodeMouseDoubleClickHandler() {
+
+		circleGroup[IOtask2BlockContext.getnCircles() - 1].addNodeMouseDoubleClickHandler(new NodeMouseDoubleClickHandler() {
 			public void onNodeMouseDoubleClick(NodeMouseDoubleClickEvent event) {
-				if (quitFlag == true) {
+				if (IOtask2BlockContext.getDoubleClickFlag()) {
 					RootPanel.get().remove(verticalPanel);
-					trialNum++;
-					trialHandler();
+					IOtask2BlockContext.endTrial();
 					return;
 				}
 			}
-		});*/
+		});
 
 		circleGroup[0].setDraggable(true);
 

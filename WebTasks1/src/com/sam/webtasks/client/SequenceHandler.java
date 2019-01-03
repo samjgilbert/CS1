@@ -22,6 +22,7 @@ package com.sam.webtasks.client;
 
 import java.util.ArrayList;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.sam.webtasks.basictools.CheckIdExists;
 import com.sam.webtasks.basictools.CheckScreenSize;
@@ -62,8 +63,10 @@ public class SequenceHandler {
 				break;
 			case 2:
 				IOtask2Block block1 = new IOtask2Block();
+				block1.targetValues.add(5);
 				
 				block1.Run();
+				
 				break;
 			}
 			break;
@@ -98,10 +101,18 @@ public class SequenceHandler {
 				CheckScreenSize.Run(SessionInfo.minScreenSize, SessionInfo.minScreenSize);
 				break;
 			case 5:
-				InfoSheet.Run(Instructions.InfoText());
+				if (SessionInfo.runInfoConsentPages) { 
+					InfoSheet.Run(Instructions.InfoText());
+				} else {
+					SequenceHandler.Next();
+				}
 				break;
 			case 6:
-				Consent.Run();
+				if (SessionInfo.runInfoConsentPages) { 
+					Consent.Run();
+				} else {
+					SequenceHandler.Next();
+				}
 				break;
 			case 7:
 				SequenceHandler.SetLoop(0, true); // switch to and initialise the main loop

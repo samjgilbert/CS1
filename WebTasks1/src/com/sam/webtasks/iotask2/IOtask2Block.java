@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import com.google.gwt.user.client.Random;
+import com.google.gwt.user.client.Window;
 import com.sam.webtasks.basictools.Counterbalance;
 import com.sam.webtasks.client.Names;
 import com.sam.webtasks.client.SequenceHandler;
@@ -61,17 +62,18 @@ public class IOtask2Block {
 	// check whether the first circle has been double-clicked, if so a double-click
 	// on the final circle exits the task, to help speed up debugging
 	public boolean doubleClickFlag = false;
-	
-	//if a circle has been dragged out of the box, which side has it been dragged to?
+
+	// if a circle has been dragged out of the box, which side has it been dragged
+	// to?
 	public int exitFlag = 0;
-	
-	//use these variables to check (when necessary) whether reminders have been set
+
+	// use these variables to check (when necessary) whether reminders have been set
 	public int reminderFlag = -1;
 	public int backupReminderFlag = -1;
-	
-	//task lockout as a penalty for reminders?
-	public boolean reminderLockout = true;
-	public int reminderLockoutTime = 2000; //duration of lockout in ms
+
+	// task lockout as a penalty for reminders?
+	public boolean reminderLockout = false;
+	public int reminderLockoutTime = 2000; // duration of lockout in ms
 
 	// this method actually runs the block
 	public void Run() {
@@ -127,18 +129,18 @@ public class IOtask2Block {
 				targetValues.add(forcedB);
 				targetValues.add(choiceValues.get(8));
 			}
-
-			/*
-			 * now save all the context about this block to the IOtask1BlockContext class*
-			 */
-			IOtask2BlockContext.setContext(this);
-
-			/*
-			 * now start subloop 3 of the sequence handler, which runs a trial of the task
-			 */
-			SequenceHandler.SetLoop(3, true);
-			SequenceHandler.Next();
 		}
+
+		/*
+		 * now save all the context about this block to the IOtask1BlockContext class*
+		 */
+		IOtask2BlockContext.setContext(this);
+
+		/*
+		 * now start subloop 3 of the sequence handler, which runs a trial of the task
+		 */
+		SequenceHandler.SetLoop(3, true);
+		SequenceHandler.Next();
 	}
 
 	// the variables below are used during trials of the task. they don't need to be
@@ -149,27 +151,30 @@ public class IOtask2Block {
 
 	// which circle has actually been clicked?
 	public int clickedCircle = 0;
-	
-	// use this variable for the conversion between the number of the circle in the sequence (can go infinitely high) and the number of circles on screen (default 6)
+
+	// use this variable for the conversion between the number of the circle in the
+	// sequence (can go infinitely high) and the number of circles on screen
+	// (default 6)
 	public int circleAdjust = 0;
-	
+
 	// how many hits (just considering the most recent trial)
 	public int nHits = 0;
 	
-	// flash flag. use this for timing the red flash if wrong circle is dragged to the bottom
+	// how long should target circles appear in their instruction colour before fading to yellow
+	public int instructionTime = 2000;
+
+	// flash flag. use this for timing the red flash if wrong circle is dragged to
+	// the bottom
 	public boolean flashFlag = false;
-	
+
 	// ???????
 	public int completedCircles = 0;
 	public int backupCompletedCircles = 0;
 	public int reminderCompletedCircles = -999;
-	
-	public int checkExitFlag = 1;
-	
 
-	// TODO: double clicks
-	// TODO: choice decision time
-	// TODO: timestamps for circle drags (needed?)
+	public int checkExitFlag = 1;
+
 	// TODO: forced offloading
+	// TODO: drag-by-drag data?
 
 }
