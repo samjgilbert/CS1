@@ -12,6 +12,9 @@ public class Instructions {
 		case 1:
 			i="This is the second page of instructions.";
 			break;
+		case 2:
+			i="Here are some instructions for a slider.";
+			break;
 		}
 
 		return(i);	

@@ -15,6 +15,9 @@ public class IOtask2Block {
 	// number of trials to run
 	public int nTrials = 1;
 
+	// run a standard 17-trial block?
+	public boolean standard17block = false;
+
 	// number of circles visible on screen
 	public int nCircles = 6;
 
@@ -77,58 +80,58 @@ public class IOtask2Block {
 
 	// this method actually runs the block
 	public void Run() {
-		if (targetValues.size() == 0) { // no target values have been set up
-			if (nTrials == 1) {
-				// if there's only 1 trial, we assume that there's no need to ask a pre-trial
-				// question
-				targetValues.add(-1); // -1 instructs the code not to ask a pre-trial question
-			} else if (nTrials == 17) {
-				// 17 trials is the standard number of trials for 4 of each forced condition
-				// plus 9 choice trials
+		if (standard17block) {
+			nTrials=17;
+			
+			// 17 trials is the standard number of trials for 4 of each forced condition
+			// plus 9 choice trials
 
-				// first set up and shuffle the 9 choice values
-				ArrayList<Integer> choiceValues = new ArrayList<Integer>();
+			// first set up and shuffle the 9 choice values
+			ArrayList<Integer> choiceValues = new ArrayList<Integer>();
 
-				// add numbers 1-9
-				for (int i = 1; i < 10; i++) {
-					choiceValues.add(i);
-				}
-
-				// now shuffle
-				for (int i = 0; i < choiceValues.size(); i++) {
-					Collections.swap(choiceValues, i, Random.nextInt(choiceValues.size()));
-				}
-
-				// now set up the values corresponding to the forced internal / forced external
-				// conditions
-				int forcedA = 0; // begin with forced internal
-				int forcedB = 10; // then have forced external
-
-				if (Counterbalance.getFactorLevel("forcedOrder") == 1) { // depending on counterbalancing version,
-																			// switch these around
-					forcedA = 10;
-					forcedB = 0;
-				}
-
-				// now put the whole list of target values together
-				targetValues.add(choiceValues.get(0));
-				targetValues.add(forcedA);
-				targetValues.add(choiceValues.get(1));
-				targetValues.add(forcedB);
-				targetValues.add(choiceValues.get(2));
-				targetValues.add(forcedA);
-				targetValues.add(choiceValues.get(3));
-				targetValues.add(forcedB);
-				targetValues.add(choiceValues.get(4));
-				targetValues.add(forcedA);
-				targetValues.add(choiceValues.get(5));
-				targetValues.add(forcedB);
-				targetValues.add(choiceValues.get(6));
-				targetValues.add(forcedA);
-				targetValues.add(choiceValues.get(7));
-				targetValues.add(forcedB);
-				targetValues.add(choiceValues.get(8));
+			// add numbers 1-9
+			for (int i = 1; i < 10; i++) {
+				choiceValues.add(i);
 			}
+
+			// now shuffle
+			for (int i = 0; i < choiceValues.size(); i++) {
+				Collections.swap(choiceValues, i, Random.nextInt(choiceValues.size()));
+			}
+
+			// now set up the values corresponding to the forced internal / forced external
+			// conditions
+			int forcedA = 0; // begin with forced internal
+			int forcedB = 10; // then have forced external
+
+			if (Counterbalance.getFactorLevel("forcedOrder") == 1) { // depending on counterbalancing version,
+																		// switch these around
+				forcedA = 10;
+				forcedB = 0;
+			}
+
+			// now put the whole list of target values together
+			targetValues.add(choiceValues.get(0));
+			targetValues.add(forcedA);
+			targetValues.add(choiceValues.get(1));
+			targetValues.add(forcedB);
+			targetValues.add(choiceValues.get(2));
+			targetValues.add(forcedA);
+			targetValues.add(choiceValues.get(3));
+			targetValues.add(forcedB);
+			targetValues.add(choiceValues.get(4));
+			targetValues.add(forcedA);
+			targetValues.add(choiceValues.get(5));
+			targetValues.add(forcedB);
+			targetValues.add(choiceValues.get(6));
+			targetValues.add(forcedA);
+			targetValues.add(choiceValues.get(7));
+			targetValues.add(forcedB);
+			targetValues.add(choiceValues.get(8));
+		}
+		
+		while (targetValues.size() < nTrials) { //if not enough target values have been set up
+			targetValues.add(-1);
 		}
 
 		/*
@@ -159,8 +162,12 @@ public class IOtask2Block {
 
 	// how many hits (just considering the most recent trial)
 	public int nHits = 0;
-	
-	// how long should target circles appear in their instruction colour before fading to yellow
+
+	// did the participant choose to set reminders (1) or not (0)?
+	public int reminderChoice = -1;
+
+	// how long should target circles appear in their instruction colour before
+	// fading to yellow
 	public int instructionTime = 2000;
 
 	// flash flag. use this for timing the red flash if wrong circle is dragged to

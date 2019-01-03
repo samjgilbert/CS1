@@ -115,6 +115,25 @@ public class IOtask2BlockContext {
 		return(blockContext.backupCompletedCircles);
 	}
 	
+	//block number
+	public static int getBlockNum() {
+		return(blockContext.blockNum);
+	}
+	
+	// hits
+	public static int getnHits() {
+		return(blockContext.nHits);
+	}
+	
+	//reminder choice
+	public static int getReminderChoice() {
+		return(blockContext.reminderChoice);
+	}
+	
+	public static void setReminderChoice(int choice) {
+		blockContext.reminderChoice=choice;
+	}
+	
 	//circleAdjust
 	public static void setCircleAdjust(int circleAdjust) {
 		blockContext.circleAdjust = circleAdjust;
@@ -171,9 +190,9 @@ public class IOtask2BlockContext {
 		return (blockContext.doubleClickFlag);
 	}
 	
-	public static void endTrial() {
+	//increment current trial
+	public static void incrementCurrentTrial() {
 		blockContext.currentTrial++;
-		SequenceHandler.Next();
 	}
 	
 	// flash flag

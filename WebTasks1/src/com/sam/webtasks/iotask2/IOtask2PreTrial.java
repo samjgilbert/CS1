@@ -124,6 +124,8 @@ public class IOtask2PreTrial {
 			public void onClick(ClickEvent event) {
 				Date responseTime = new Date();
 				
+				IOtask2BlockContext.setReminderChoice(1);
+				
 				//,1, below indicates the output that reminders have been selected
 				
 				final String data = IOtask2BlockContext.getTrialNum() + "," + IOtask2BlockContext.currentTargetValue() + ",1," + (int) (responseTime.getTime() - instructionStart.getTime()); 
@@ -145,6 +147,8 @@ public class IOtask2PreTrial {
 		noReminderButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				Date responseTime = new Date();
+				
+				IOtask2BlockContext.setReminderChoice(0);
 				
 				//,0, below indicates that reminders have not been selected
 				final String data = IOtask2BlockContext.getTrialNum() + "," + IOtask2BlockContext.currentTargetValue() + ",0," + (int) (responseTime.getTime() - instructionStart.getTime()); 

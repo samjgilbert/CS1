@@ -62,11 +62,40 @@ public class SequenceHandler {
 				ClickPage.Run(Instructions.Get(0), "Next");
 				break;
 			case 2:
+				ClickPage.Run(Instructions.Get(1),  "Next");
+				break;
+			case 3:
+				//this runs the task with default settings: no choice at the beginning, and just one trial
 				IOtask2Block block1 = new IOtask2Block();
-				block1.targetValues.add(5);
-				
 				block1.Run();
-				
+				break;
+			case 4:
+				IOtask2Block block2 = new IOtask2Block();
+				block2.targetValues.add(0); //forced internal condition
+				block2.nTargets=16;         //16 targets
+				block2.blockNum=2;          //we always set the block number so that data from each block is kept separate
+				block2.Run();
+				break;
+			case 5:
+				IOtask2Block block3 = new IOtask2Block();
+				block3.targetValues.add(10); //forced external condition
+				block3.nTargets=4;
+				block3.blockNum=3;
+				block3.Run();
+				break;
+			case 6:
+				Slider.Run(Instructions.Get(2),  "0",  "100");
+				break;
+			case 7:
+				PHP.logData("sliderValue",  "" + Slider.getSliderValue(), true);
+				break;
+			case 8:
+				IOtask2Block block4 = new IOtask2Block();
+				block4.standard17block = true; //run a standard block of 17 trials
+				block4.Run();
+				break;
+			case 9:
+				Finish.Run();
 				break;
 			}
 			break;
