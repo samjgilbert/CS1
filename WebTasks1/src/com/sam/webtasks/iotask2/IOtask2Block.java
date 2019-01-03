@@ -79,7 +79,7 @@ public class IOtask2Block {
 	public int reminderLockoutTime = 2000; // duration of lockout in ms
 
 	// this method actually runs the block
-	public void Run() {
+	public void Run() { 
 		if (standard17block) {
 			nTrials=17;
 			
