@@ -67,34 +67,43 @@ public class SequenceHandler {
 			case 3:
 				//this runs the task with default settings: no choice at the beginning, and just one trial
 				IOtask2Block block1 = new IOtask2Block();
+				block1.showPostTrialFeedback=false; //this switches off the feedback after the trial
 				block1.Run();
 				break;
 			case 4:
+				if (IOtask2BlockContext.getnHits() < 8) { //if there were fewer than 8 hits on the last trial
+					SequenceHandler.SetPosition(SequenceHandler.GetPosition()-2); //this line means that instead of moving forward we will repeat the previous instructions
+					ClickPage.Run("You need to get at least 8 correct.", "Try again");
+				} else {
+					SequenceHandler.Next(); //move to the next instruction
+				}
+				break;
+			case 5:
 				IOtask2Block block2 = new IOtask2Block();
 				block2.targetValues.add(0); //forced internal condition
 				block2.nTargets=16;         //16 targets
 				block2.blockNum=2;          //we always set the block number so that data from each block is kept separate
 				block2.Run();
 				break;
-			case 5:
+			case 6:
 				IOtask2Block block3 = new IOtask2Block();
 				block3.targetValues.add(10); //forced external condition
 				block3.nTargets=4;
 				block3.blockNum=3;
 				block3.Run();
 				break;
-			case 6:
-				Slider.Run(Instructions.Get(2),  "0",  "100");
-				break;
 			case 7:
-				PHP.logData("sliderValue",  "" + Slider.getSliderValue(), true);
+				Slider.Run(Instructions.Get(2),  "None of them",  "All of them");
 				break;
 			case 8:
+				PHP.logData("sliderValue",  "" + Slider.getSliderValue(), true);
+				break;
+			case 9:
 				IOtask2Block block4 = new IOtask2Block();
 				block4.standard17block = true; //run a standard block of 17 trials
 				block4.Run();
 				break;
-			case 9:
+			case 10:
 				Finish.Run();
 				break;
 			}
