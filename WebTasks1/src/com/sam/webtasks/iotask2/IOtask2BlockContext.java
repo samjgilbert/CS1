@@ -155,6 +155,7 @@ public class IOtask2BlockContext {
 	
 	public static void incrementHits() {
 		blockContext.nHits++;
+		blockContext.totalPoints += blockContext.actualPoints;
 	}
 	
 	//get target side - use this for checking target status

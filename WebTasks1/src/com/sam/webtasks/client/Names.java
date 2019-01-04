@@ -17,5 +17,13 @@ public class Names {
 	public final static int ELIGIBILITY_ANYONE=0; //anyone can take part
 	public final static int ELIGIBILITY_NEVERCOMPLETED=1; //can only take part if you haven't completed the experiment
 	public final static int ELIGIBILITY_NEVERACCESSED=2;  //can only take part if you haven't accessed the task
+	
+	//feedback valence
+	public final static int FEEDBACK_POSITIVE=0;
+	public final static int FEEDBACK_NEGATIVE=1;
+	
+	//initial practice difficulty
+	public final static int PRACTICE_EASY=0;
+	public final static int PRACTICE_DIFFICULT=1;
 }
 

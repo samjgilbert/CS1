@@ -79,31 +79,46 @@ public class SequenceHandler {
 				}
 				break;
 			case 5:
-				IOtask2Block block2 = new IOtask2Block();
-				block2.targetValues.add(0); //forced internal condition
-				block2.nTargets=16;         //16 targets
-				block2.blockNum=2;          //we always set the block number so that data from each block is kept separate
-				block2.Run();
+				if (Counterbalance.getFactorLevel("practiceDifficulty") == Names.PRACTICE_EASY) {
+					ClickPage.Run("This one will be easy.", "Next");
+				} else if (Counterbalance.getFactorLevel("practiceDifficulty") == Names.PRACTICE_DIFFICULT) {
+					ClickPage.Run("This one will be difficult.", "Next");
+				}
 				break;
 			case 6:
+				IOtask2Block block2 = new IOtask2Block();
+				block2.targetValues.add(0); //forced internal condition
+				block2.showPoints=false;    //don't display the number of points so far at the beginning. The default is to show this
+				block2.blockNum=2;          //we always set the block number so that data from each block is kept separate
+				
+				if (Counterbalance.getFactorLevel("practiceDifficulty") == Names.PRACTICE_EASY) {
+					block2.nTargets=4;
+				} else if (Counterbalance.getFactorLevel("practiceDifficulty") == Names.PRACTICE_DIFFICULT) {
+					block2.nTargets=16;
+				}
+				
+				block2.Run();
+				break;
+			case 7:
 				IOtask2Block block3 = new IOtask2Block();
 				block3.targetValues.add(10); //forced external condition
-				block3.nTargets=4;
+				block3.showPoints=false;
 				block3.blockNum=3;
 				block3.Run();
 				break;
-			case 7:
+			case 8:
 				Slider.Run(Instructions.Get(2),  "None of them",  "All of them");
 				break;
-			case 8:
+			case 9:
+				//save the selected slider value to the database
 				PHP.logData("sliderValue",  "" + Slider.getSliderValue(), true);
 				break;
-			case 9:
+			case 10:
 				IOtask2Block block4 = new IOtask2Block();
 				block4.standard17block = true; //run a standard block of 17 trials
 				block4.Run();
 				break;
-			case 10:
+			case 11:
 				Finish.Run();
 				break;
 			}

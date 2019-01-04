@@ -2,6 +2,7 @@ package com.sam.webtasks.iotask2;
 
 import com.sam.webtasks.basictools.ClickPage;
 import com.sam.webtasks.basictools.Counterbalance;
+import com.sam.webtasks.client.Names;
 
 public class IOtask2Feedback {
 
@@ -10,7 +11,7 @@ public class IOtask2Feedback {
 		
 		IOtask2Block block = IOtask2BlockContext.getContext(); //get context from most recent block
 		
-		if (Counterbalance.getFactorLevel("feedbackValence") == 0) { //positive feedback
+		if (Counterbalance.getFactorLevel("feedbackValence") == Names.FEEDBACK_POSITIVE) {
 			if (block.nHits == 0) {
 				msg = "You did not get any special circles correct this time.";
 			} else if (block.nHits <= (block.nTargets/2)) {
@@ -20,7 +21,7 @@ public class IOtask2Feedback {
 			} else {
 				msg = "Well done - excellent work! You responded correctly to most of the special circles.";
 			}
-		} else { //negative feedback
+		} else if (Counterbalance.getFactorLevel("feedbackValence") == Names.FEEDBACK_NEGATIVE) { 
 			if (block.nHits == block.nTargets) {
 				msg = "You did not get any special circles wrong this time.";
 			} else if (block.nHits == 0) {
