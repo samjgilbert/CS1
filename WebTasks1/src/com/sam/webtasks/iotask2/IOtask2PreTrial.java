@@ -15,11 +15,15 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.sam.webtasks.basictools.Counterbalance;
 import com.sam.webtasks.basictools.PHP;
+import com.sam.webtasks.basictools.ProgressBar;
 import com.sam.webtasks.client.Names;
 import com.sam.webtasks.client.SequenceHandler;
 
 public class IOtask2PreTrial {
 	public static void Run() {
+		if (IOtask2BlockContext.getUpdateProgress()) {
+			ProgressBar.SetProgress(IOtask2BlockContext.getTrialNum(), IOtask2BlockContext.getnTrials());
+		}
 		
 		final Date instructionStart = new Date();
 		

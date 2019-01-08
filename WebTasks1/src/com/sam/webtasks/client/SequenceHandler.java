@@ -23,6 +23,7 @@ package com.sam.webtasks.client;
 import java.util.ArrayList;
 
 import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.sam.webtasks.basictools.CheckIdExists;
 import com.sam.webtasks.basictools.CheckScreenSize;
@@ -33,6 +34,7 @@ import com.sam.webtasks.basictools.Finish;
 import com.sam.webtasks.basictools.InfoSheet;
 import com.sam.webtasks.basictools.Initialise;
 import com.sam.webtasks.basictools.PHP;
+import com.sam.webtasks.basictools.ProgressBar;
 import com.sam.webtasks.basictools.Slider;
 import com.sam.webtasks.basictools.TimeStamp;
 import com.sam.webtasks.iotask1.IOtask1Block;
@@ -62,63 +64,212 @@ public class SequenceHandler {
 				ClickPage.Run(Instructions.Get(0), "Next");
 				break;
 			case 2:
-				ClickPage.Run(Instructions.Get(1),  "Next");
+				IOtask2Block block0 = new IOtask2Block();
+				block0.totalCircles = 8;
+				block0.nTargets = 0;
+				block0.blockNum = 0;
+				block0.nTrials = 2;
+				block0.showPostTrialFeedback = false;
+				block0.Run();
 				break;
 			case 3:
-				//this runs the task with default settings: no choice at the beginning, and just one trial
-				IOtask2Block block1 = new IOtask2Block();
-				block1.showPostTrialFeedback=false; //this switches off the feedback after the trial
-				block1.Run();
+				ClickPage.Run(Instructions.Get(1),  "Next");
 				break;
 			case 4:
-				if (IOtask2BlockContext.getnHits() < 8) { //if there were fewer than 8 hits on the last trial
-					SequenceHandler.SetPosition(SequenceHandler.GetPosition()-2); //this line means that instead of moving forward we will repeat the previous instructions
-					ClickPage.Run("You need to get at least 8 correct.", "Try again");
-				} else {
-					SequenceHandler.Next(); //move to the next instruction
-				}
+				IOtask2Block block1 = new IOtask2Block();
+				block1.totalCircles = 8;
+				block1.nTargets = 1;
+				block1.blockNum = 1;
+				block1.nTrials = 2;
+				block1.showPostTrialFeedback = false;
+				block1.Run();
 				break;
 			case 5:
+				int pracTargets = 0;
+				
 				if (Counterbalance.getFactorLevel("practiceDifficulty") == Names.PRACTICE_EASY) {
-					ClickPage.Run("This one will be easy.", "Next");
+					pracTargets=4;
 				} else if (Counterbalance.getFactorLevel("practiceDifficulty") == Names.PRACTICE_DIFFICULT) {
-					ClickPage.Run("This one will be difficult.", "Next");
+					pracTargets=16;
 				}
-				break;
+				if (IOtask2BlockContext.getnHits() < 1) { //if there were fewer than 8 hits on the last trial
+					SequenceHandler.SetPosition(SequenceHandler.GetPosition()-2); //this line means that instead of moving forward we will repeat the previous instructions
+					ClickPage.Run("You didn't drag the special circle to the correct location.", "Please try again");
+				} else {
+					ClickPage.Run("Well done, that was correct.<br><br>Now it will get more difficult. "
+	                        + "There will be a total of 25 circles, and " + pracTargets + " of them will be special ones "
+	                        + "that should go to one of the coloured sides of the box.<br><br>Don't worry if you "
+	                        + "do not remember all of them. That's fine - just try to remember as many as you can.", "Next");
+					//*****SequenceHandler.Next(); //move to the next instruction
+				}
+				break;	
 			case 6:
-				IOtask2Block block2 = new IOtask2Block();
-				block2.targetValues.add(0); //forced internal condition
-				block2.showPoints=false;    //don't display the number of points so far at the beginning. The default is to show this
-				block2.blockNum=2;          //we always set the block number so that data from each block is kept separate
-				
-				if (Counterbalance.getFactorLevel("practiceDifficulty") == Names.PRACTICE_EASY) {
-					block2.nTargets=4;
-				} else if (Counterbalance.getFactorLevel("practiceDifficulty") == Names.PRACTICE_DIFFICULT) {
-					block2.nTargets=16;
-				}
-				
-				block2.Run();
-				break;
+			IOtask2Block block2 = new IOtask2Block();
+			
+			if (Counterbalance.getFactorLevel("practiceDifficulty") == Names.PRACTICE_EASY) {
+				block2.nTargets=4;
+			} else if (Counterbalance.getFactorLevel("practiceDifficulty") == Names.PRACTICE_DIFFICULT) {
+				block2.nTargets=16;
+			}
+			
+			//*****block2.targetValues.add(0);
+			block2.showPoints = false;
+			block2.blockNum = 2; 
+			block2.nTrials = 5;
+			
+			block2.Run();
+			break;
 			case 7:
-				IOtask2Block block3 = new IOtask2Block();
-				block3.targetValues.add(10); //forced external condition
-				block3.showPoints=false;
-				block3.blockNum=3;
-				block3.Run();
+				if (Counterbalance.getFactorLevel("practiceDifficulty") == Names.PRACTICE_EASY) {
+					ClickPage.Run("Now the task will get more difficult. It will stay like this for the rest of the experiment.<br><br>"  
+							                        + "Please ignore the difficulty of the practice trials you have just done and remember that the task "  
+							                        + "will be like this from now on.<br><br>Click below to continue", "Next");
+				} else if (Counterbalance.getFactorLevel("practiceDifficulty") == Names.PRACTICE_DIFFICULT) {
+				ClickPage.Run("Now the task will get easier. It will stay like this for the rest of the experiment.<br><br>"  
+							                       + "Please ignore the difficulty of the practice trials you have just done and remember that the task "  
+							                       + "will be like this from now on.<br><br>Click below to continue", "Next");
+				//******SequenceHandler.Next();
+				}
 				break;
 			case 8:
-				Slider.Run(Instructions.Get(2),  "None of them",  "All of them");
+				//this runs the task with default settings: no choice at the beginning, and just one trial
+				IOtask2Block block3 = new IOtask2Block();
+				block3.totalCircles = 25;
+				block3.nTargets = 10;
+				block3.blockNum = 3;
+				block3.nTrials = 1;
+				//*****block3.showPostTrialFeedback = false;
+				block3.Run();
 				break;
+				
+			//case 8:
+			//	IOtask2Block block3 = new IOtask2Block();
+			//	block3.targetValues.add(0); //forced internal condition
+			//	block3.showPoints=false;    //don't display the number of points so far at the beginning. The default is to show this
+			//	block3.blockNum=2;          //we always set the block number so that data from each block is kept separate
+			//	
+			//	if (Counterbalance.getFactorLevel("practiceDifficulty") == Names.PRACTICE_EASY) {
+			//		block3.nTargets=4;
+			//	} else if (Counterbalance.getFactorLevel("practiceDifficulty") == Names.PRACTICE_DIFFICULT) {
+			//		block3.nTargets=16;
+			//	}
+			//	
+			//	block3.Run();
+			//	break;
+			
 			case 9:
+				Slider.Run(Instructions.Get(2), "None of them", "All of them");
+				break;
+			case 10:
 				//save the selected slider value to the database
 				PHP.logData("sliderValue",  "" + Slider.getSliderValue(), true);
 				break;
-			case 10:
+			case 11:
+				ClickPage.Run(Instructions.Get(3),  "Next");
+				break;
+			case 12:
 				IOtask2Block block4 = new IOtask2Block();
-				block4.standard17block = true; //run a standard block of 17 trials
+				//***** block4.targetValues.add(10); //forced external condition
+				block4.showPoints=false;
+				block4.showPostTrialFeedback = true;
+				block4.blockNum=4;
 				block4.Run();
 				break;
-			case 11:
+			case 13:
+				//******
+				if (IOtask2BlockContext.getnHits() < 8) { //if there were fewer than 8 hits on the last trial
+					SequenceHandler.SetPosition(SequenceHandler.GetPosition()-2); //this line means that instead of moving forward we will repeat the previous instructions
+					String msg = "You got " + IOtask2BlockContext.getnHits() + " out of 10 correct that time. You need to get at least 8 out of "
+							+ "10 correct to continue to the next part.<br><br>Please keep in mind that you can set reminders to help you remember. Each "
+							+ "time a special circle appears, you can immediately drag it next to the part of the box where it eventually needs to go. "
+							+ "This should help reminder you what to do when you get to that circle in the sequence.";
+					ClickPage.Run(msg, "Try again");		
+				} else {
+					SequenceHandler.Next();
+				}
+				break;
+			case 14:
+				ClickPage.Run(Instructions.Get(4), "Next");
+				break;
+			case 15:
+				ClickPage.Run(Instructions.Get(5), "Next");
+				break;
+			case 16:
+				IOtask2Block block5 = new IOtask2Block();
+				block5.targetValues.add(0); //forced internal condition
+				block5.showPoints=false;
+				block5.showPostTrialFeedback = true;
+				block5.blockNum=5;
+				block5.Run();
+				break;
+			case 17: 
+				ClickPage.Run(Instructions.Get(6), "Next");
+				break;
+			case 18:
+				IOtask2Block block6 = new IOtask2Block();
+				block6.targetValues.add(10); //forced internal condition
+				block6.showPoints=false;
+				block6.showPostTrialFeedback = true;
+				block6.blockNum=6;
+				block6.Run();
+				break;
+			case 19:
+				ClickPage.Run(Instructions.Get(7), "Next");
+				break;
+			case 20:
+				ClickPage.Run(Instructions.Get(8), "Next");
+				break;
+			
+				//if (IOtask2BlockContext.getnHits() < 8) { //if there were fewer than 8 hits on the last trial
+				//	SequenceHandler.SetPosition(SequenceHandler.GetPosition()-2); //this line means that instead of moving forward we will repeat the previous instructions
+				//	ClickPage.Run("You only got " + nHits + " out of 10 correct. You need to get at least 8 out of 10 correct to continue to the next part.<br><br>"
+				//			+"Please keep in mind that you can set reminders to help you remember. Each time a special circle appears, you can immediately drag it "
+				//			+ "next to the part of the box where it eventually needs to go so. This should help remind you what to do when you get to that circle in the "
+				//			+ "sequence.", "Try again");
+				//} else {
+				//	ClickPage.Run("Well done, that was correct.<br><br>Now it will get more difficult. "
+	              //          + "There will be a total of 25 circles, and " + pracTargets + " of them will be special ones "
+	                //        + "that should go to one of the coloured sides of the box.<br><br>Don't worry if you "
+	                  //      + "do not remember all of them. That's fine - just try to remember as many as you can.", "Next");
+				//	SequenceHandler.Next(); //move to the next instruction
+				//}
+				//break;	
+			case 21: 
+				//add progress bar to screen
+				ProgressBar.Initialise();
+				ProgressBar.Show();
+				ProgressBar.SetProgress(0,  17);
+				
+				
+				IOtask2Block block7 = new IOtask2Block();
+				block7.standard17block = true; //run a standard block of 17 trials
+				block7.updateProgress = true; //update the progress bar so that it represents the current trial number compared to the whole block
+				block7.blockNum=7;
+				block7.showPostTrialFeedback = true;
+				block7.showPoints = true;
+				block7.Run();
+				break;
+			case 22:
+				//hide the progress bar
+				ProgressBar.Hide();
+				
+				//***** log data and check that it saves
+				String data = SessionInfo.rewardCode + ",";
+				data = data + Counterbalance.getFactorLevel("forcedOrder") + ",";
+				data = data + Counterbalance.getFactorLevel("buttonPositions") + ",";
+				data = data + Counterbalance.getFactorLevel("buttonColours") + ",";
+				data = data + Counterbalance.getFactorLevel("practiceDifficulty") + ",";
+				data = data + Counterbalance.getFactorLevel("feedbackValence") + ",";
+				data = data + SessionInfo.gender + ",";
+				data = data + SessionInfo.age + ",";
+				data = data + Slider.getSliderValue() + ","; //Slider.getSliderValue() returns the most recent slider
+				//value. Seeing as there is only one slider in this experiment this solution works fine, but if
+				//there was more than one slider response we would have to implement a more complex solution.
+				data = data + TimeStamp.Now();
+
+				PHP.logData("finish", data, true);
+				break;
+			case 23:
 				Finish.Run();
 				break;
 			}

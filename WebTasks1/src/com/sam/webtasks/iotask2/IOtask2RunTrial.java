@@ -77,7 +77,7 @@ public class IOtask2RunTrial {
 
 		verticalPanel.setWidth(Window.getClientWidth() + "px");
 		verticalPanel.setHeight(Window.getClientHeight() + "px");
-
+		
 		verticalPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		verticalPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
 

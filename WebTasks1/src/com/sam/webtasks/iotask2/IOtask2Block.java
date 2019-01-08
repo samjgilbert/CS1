@@ -17,6 +17,9 @@ public class IOtask2Block {
 
 	// run a standard 17-trial block?
 	public boolean standard17block = false;
+	
+	// update the progress bar with progress through the block?
+	public boolean updateProgress = false;
 
 	// number of circles visible on screen
 	public int nCircles = 6;
@@ -180,6 +183,8 @@ public class IOtask2Block {
 	public int reminderCompletedCircles = -999;
 
 	public int checkExitFlag = 1;
+
+	public int pracTargets;
 
 	// TODO: forced offloading
 	// TODO: drag-by-drag data?

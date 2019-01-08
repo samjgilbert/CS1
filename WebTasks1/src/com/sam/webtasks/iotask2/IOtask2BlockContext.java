@@ -25,6 +25,11 @@ public class IOtask2BlockContext {
 	public static int getClickedCircle() {
 		return (blockContext.clickedCircle);
 	}
+	
+	//update progress bar?
+	public static boolean getUpdateProgress() {
+		return (blockContext.updateProgress);
+	}
 
 	// find out the current total number of points
 	public static int getTotalPoints() {
@@ -50,6 +55,10 @@ public class IOtask2BlockContext {
 	// what is the current trial number
 	public static int getTrialNum() {
 		return (blockContext.currentTrial);
+	}
+	
+	public static int getnTrials() {
+		return (blockContext.nTrials);
 	}
 
 	// use these methods to set and find out which is the next circle in the

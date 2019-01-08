@@ -1,5 +1,8 @@
 package com.sam.webtasks.client;
 
+import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.sam.webtasks.basictools.ProgressBar;
+
 public class Names {
 	//reminder conditions
 	public final static int REMINDERS_NOTALLOWED=0; //can't use reminders

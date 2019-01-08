@@ -11,7 +11,7 @@ import com.sam.webtasks.client.SessionInfo;
 
 public class Finish {
 	public static void Run() {
-		final HTML goodbyeText = new HTML("Thank you for taking part.<br><br>If you would like "
+		final HTML goodbyeText = new HTML("You have now completed the experiment. Thank you for taking part.<br><br>If you would like "
 				+ "to contact the experimenter you can email "
 				+ "<a href=\"mailto:sam.gilbert@ucl.ac.uk\">sam.gilbert@ucl.ac.uk</a>."
 				+ "<br><br>To receive your payment "
